@@ -1,6 +1,15 @@
 #include "cards.h"
 
 /* Methods for the abstract classes */
+bool Card::operator==(const Card &other) const {
+    return name == other.name;
+}
+
+ostream& operator<<(ostream& out, const Card &card) {
+    out << card.name;
+    return out;
+}
+
 string Card::getName() {
     return name;
 }
@@ -15,6 +24,10 @@ int TerritoryCard::getPoints() {
 
 int MoneyCard::getCoins() {
     return coins;
+}
+
+void ActionCard::action() {
+    cout << "action!" << endl; // TODO actually implement this
 }
 
 /* Money cards */
@@ -56,6 +69,3 @@ Province::Province() {
 }
 
 /* Action Cards */
-int main () {
-    cout << "hello, world!" << endl;
-}

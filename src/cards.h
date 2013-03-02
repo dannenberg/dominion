@@ -11,8 +11,11 @@ using namespace std;
 
 class Card {
     public:
+        bool operator==(const Card &other) const;
         string getName();
         int getCost();
+
+        friend ostream& operator<<(ostream &out, const Card &card);
     protected:
         int cost; // cards cost in coin
         string name; // card name
