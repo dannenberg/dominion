@@ -15,7 +15,12 @@ class Player {
         void startTurn();
         void endTurn();
         void drawHand();
-        void drawCard();
+        void drawCard(int num = 1);
+        void gainAction(int num = 1);
+        void gainBuy(int num = 1);
+        void gainCoin(int num = 1);
+        int discardCard(Card card);
+        int trashCard(Card card);
         int playAction(ActionCard card);
         int buyCard(Card card);
     protected:

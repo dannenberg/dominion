@@ -29,20 +29,52 @@ void Player::endTurn() {
     drawHand();
 }
 
-void Player::drawCard() {
-    // if deck is empty shuffle discard to be new deck before drawing
-    if (deck.empty()) {
-        deck.swap(discard_pile); // TODO test
-        random_shuffle(deck.begin(), deck.end());
+void Player::drawCard(int num = 1) {
+    for (int i = 0; i < num; i++) {
+        // if deck is empty shuffle discard to be new deck before drawing
+        if (deck.empty()) {
+            deck.swap(discard_pile); // TODO test
+            random_shuffle(deck.begin(), deck.end());
+        }
+        hand.push_back(deck.back()); // TODO check if this can be better
+        deck.pop_back();
     }
-    hand.push_back(deck.back()); // TODO check if this can be better
-    deck.pop_back();
 }
 
 void Player::drawHand() {
     for (int i = 0; i < 5; i++) {
         drawCard();
     }
+}
+
+void Player::gainAction(int num = 1) {
+    actions += num;
+}
+
+void Player::gainBuy(int num = 1) {
+    buy += num;
+}
+
+void Player::gainCoin(int num = 1) {
+    coins += num;
+}
+
+int Player::discardCard(Card card) {
+    if (find(hand.begin(), hand.end(), card) != hand.end()) {
+        hand.erase(find(hand.begin(), hand.end(), card)); // TODO test
+        discard_pile.push_back(card);
+        return 1;
+    }
+    return 0;
+}
+
+int Player::trashCard(Card card) {
+    if (find(hand.begin(), hand.end(), card) != hand.end()) {
+        hand.erase(find(hand.begin(), hand.end(), card)); // TODO test
+        game.trash(card); // TODO make this a thing
+        return 1;
+    }
+    return 0;
 }
 
 int Player::playAction(ActionCard card) {
